@@ -12,7 +12,12 @@
     <link rel="stylesheet" href="{{ voyager_asset('css/login.css') }}">
     <style>
         body {
-            background-image:url('{{ Voyager::image( Voyager::setting("admin_bg_image"), config('voyager.assets_path') . "/images/bg.jpg" ) }}');
+            @php
+            $background_images = preg_split("/\\r\\n|\\r|\\n/", Voyager::setting("admin_bg_images"));
+            if (!$background_images)
+                $background_images = [Voyager::image("/images/bg.jpg")]
+            @endphp
+            background-image:url('{{ asset($background_images[array_rand($background_images)]) }}');
             background-color: {{ Voyager::setting("admin_bg_color", "#FFFFFF" ) }};
         }
         .login-sidebar:after {
