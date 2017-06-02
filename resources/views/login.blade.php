@@ -26,6 +26,9 @@
     </style>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    @if(!empty(config('voyager.additional_css')))<!-- Additional CSS -->
+    @foreach(config('voyager.additional_css') as $css)<link rel="stylesheet" type="text/css" href="{{ asset($css) }}">@endforeach
+    @endif
 </head>
 <body>
 <!-- Designed with ♥ by Frondor -->
@@ -107,5 +110,8 @@
         }
     });
 </script>
+@if(!empty(config('voyager.additional_js')))<!-- Additional Javascript -->
+@foreach(config('voyager.additional_js') as $js)<script type="text/javascript" src="{{ asset($js) }}"></script>@endforeach
+@endif
 </body>
 </html>
