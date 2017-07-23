@@ -185,10 +185,10 @@ class VoyagerBreadController extends Controller
             $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
 
             return redirect()
-            ->route("voyager.{$dataType->slug}.index")
-            ->with([
-                'message'    => __('voyager.generic.successfully_updated')." {$dataType->display_name_singular}",
-                'alert-type' => 'success',
+                ->route("voyager.{$dataType->slug}.index")
+                ->with([
+                    'message'    => __('voyager.generic.successfully_updated')." {$dataType->display_name_singular}",
+                    'alert-type' => 'success',
                 ]);
         }
     }
@@ -221,7 +221,7 @@ class VoyagerBreadController extends Controller
 
         foreach ($dataType->addRows as $key => $row) {
             $details = json_decode($row->details);
-            $dataType->editRows[$key]['col_width'] = isset($details->width) ? $details->width : 100;
+            $dataType->addRows[$key]['col_width'] = isset($details->width) ? $details->width : 100;
         }
 
         // Check if BREAD is Translatable
@@ -259,7 +259,7 @@ class VoyagerBreadController extends Controller
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
                 ->with([
-                        'message'    => __('generic_successfully_added_new')." {$dataType->display_name_singular}",
+                        'message'    => __('voyager.generic.successfully_added_new')." {$dataType->display_name_singular}",
                         'alert-type' => 'success',
                     ]);
         }
