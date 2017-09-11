@@ -159,19 +159,27 @@ class Voyager
 
     public function setting($key, $default = null)
     {
-        if ($this->setting_cache === null) {
-            foreach (Setting::all() as $setting) {
-                $keys = explode('.', $setting->key);
-                @$this->setting_cache[$keys[0]][$keys[1]] = $setting->value;
-            }
-        }
+        $this->cache_settings();
 
         $parts = explode('.', $key);
-
         if (count($parts) == 2) {
             return @$this->setting_cache[$parts[0]][$parts[1]] ?: $default;
         } else {
             return @$this->setting_cache[$parts[0]] ?: $default;
+        }
+    }
+
+    protected function cache_settings()
+    {
+        if ($this->setting_cache === null) {
+            foreach (Setting::all() as $setting) {
+                $keys = explode('.', $setting->key);
+                if (count($keys) == 2) {
+                    @$this->setting_cache[$keys[0]][$keys[1]] = $setting->value;
+                } else {
+                    @$this->setting_cache[$keys[0]] = $setting->value;
+                }
+            }
         }
     }
 
