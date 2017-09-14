@@ -11,7 +11,7 @@
     <style>
         body {
             @php
-            $background_images = preg_split("/\\r\\n|\\r|\\n/", Voyager::setting("admin_bg_images"));
+            $background_images = preg_split("/\\r\\n|\\r|\\n/", Voyager::setting("admin.bg_images"));
             if (!$background_images)
                 $background_images = [Voyager::image("/images/bg.jpg")]
             @endphp
